@@ -1,0 +1,62 @@
+extends layout 
+
+block title 
+    title Admin Order 
+
+block scripts 
+    script(src="/resources/js/update.js")
+
+block content
+    div(class = "title")
+            h1 Order Management 
+
+    div(class="search_manu")
+        form(method="get", action="/admin/orders")
+            input.search_bar(type="text", id="query", name="query", value=buyer, placeholder="Search order-placer...")
+            select(id="status", name="status")
+                option(value="all_statuses") All Statuses
+                option(value="placed" selected=(status==="placed")) Placed
+                option(value="shipped" selected=(status==="shipped")) Shipped
+                option(value="delivered" selected=(status==="delivered")) Delivered
+            input.submit_button(type="submit", value="Search")
+
+        if buyer || status !== "all_statuses"
+            div(class="search_status")
+                if buyer
+                    h2 Search for sender: #{buyer}
+                if status !== "all_statuses"
+                    h2 Search for status: #{status}
+
+    if filtered_orders.length === 0
+        div(class="Not_found")
+            h2 No order found
+            p Try adjusting your search criteria
+    else
+        table(border="1")
+            thead
+                tr
+                    th #
+                    th Status
+                    th Cost
+                    th From
+                    th Address
+                    th Product
+                    th Notes
+            tbody
+                each order in filtered_orders
+                    - const address = order.address.split("\n")
+                    tr
+                        td
+                            a(href=`/tracking/${order.id}`) #{order.id}
+                        td #{order.status}
+                        td #{typeset_dollars(Number(order.cost))}
+                        td #{order.from_name}
+                        td
+                            address
+                                | #{address[0]}
+                                br
+                                | #{address[1]}
+                                br
+                                | #{address[2]}
+                        td #{order.product}
+                        td #{order.notes}

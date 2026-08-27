@@ -1,0 +1,75 @@
+extends layout 
+
+block title 
+    title Admin Orders
+
+block content 
+     div(class = "title")
+        h1 Order Management 
+
+    div(class="search_manu")
+        form(method="get", action="/admin/orders")
+            input.search_bar(type="text", id="query", name="query", value=buyer, placeholder="Search order-placer...")
+            select(id="status", name="status")
+                option(value="all_statuses") All Statuses
+                option(value="placed" selected=(status==="placed")) Placed
+                option(value="shipped" selected=(status==="shipped")) Shipped
+                option(value="delivered" selected=(status==="delivered")) Delivered
+            input.submit_button(type="submit", value="Search")
+
+    table(border="1")
+      thead
+        tr
+          th #
+          th Status
+          th Cost
+          th From
+          th Address
+          th Product
+          th Notes
+      tbody
+        tr
+          //
+            All of the address below are generate by LLM(Chat GPT)
+             prompt: give me three made up address with the correct usps format
+          td 0
+          td Delivered
+          td 1000.00$
+          td Harry Potter
+          td
+            address
+              | Harry Potter
+              br
+              | 1111 Dream Ave
+              br
+              | Snoozeville, CA 90210
+          td Power Nap Package
+          td Additional 15 minutes
+        tr
+          td 1
+          td Shipped
+          td 30000.00$
+          td Naruto Uzumaki
+          td
+            address
+              | Naruto Uzumaki
+              br
+              | 2222 Konoha Rd
+              br
+              | Dozington, TX 73301
+          td Overnight Coverage
+          td 15% discount
+        tr
+          td 2
+          td Placed
+          td 100.00$
+          td Tanjiro Kamado
+          td
+            address
+              | Tanjiro Kamado
+              br
+              | 3333 Water Blvd
+              br
+              | Nap City, NY 10001
+          td Dream Customization
+          td Flying with a horse

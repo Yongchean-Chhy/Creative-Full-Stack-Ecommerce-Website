@@ -1,0 +1,90 @@
+extends layout 
+
+block title 
+    title Order 
+
+block scripts 
+    script(src="/resources/js/order.js")
+
+block content
+    .title
+      h1 Place an Order
+    div(class="place_order")
+      .prefill
+        button#prefill(type="button") Prefill Form
+      div(
+        style="display: none;" 
+        id="order_message_section"
+        )
+        p(id="is_success")
+        p(id="order_message")
+      div(class="new_order_detail")
+        form(id="order_form")
+          input(
+            value="order" 
+            name="action" 
+            type="hidden"
+            )
+          label(for="product") Select a Product:
+          select#product(name="product")
+            option(value="select a product") Select a Product
+            option(value="Power Nap Package") Power Nap Package
+            option(value="Overnight Coverage") Overnigh Coverage
+            option(value="Dream Customization") Dream Customization
+          p Order Summary
+          p(id="product_cost") Total Cost: Select a product and qunatity for cost information
+          div(id="quantity_section")
+            label(for="quantity") Qunatity:
+            input#quantity(
+              name="quantity" 
+              type="number"
+              )
+          label(for="from_name") From
+          input(
+            value="" 
+            name="from_name" 
+            id="from_name" 
+            type="text"
+            )
+          label(for="address") Recipient Name and Address
+          textarea#address(
+            cols="50" 
+            rows="2" 
+            name="address" 
+            type="text"
+            )
+          p Select a Shipping Option:
+          #shipping-options
+            label
+              input(
+                value="flat rate" 
+                name="shipping_option" 
+                id="flat_rate" 
+                type="radio"
+                )
+              | Flat Rate
+            br
+            label
+              input(
+                value="overnight shipping" 
+                name="shipping_option" 
+                id="overnight_shipping" 
+                type="radio"
+                )
+              | Overnight Shipping
+            br
+            label
+              input#asap(
+                value="asap" 
+                name="shipping_option" 
+                type="radio"
+                )
+              | ASAP
+          p Order Date:
+          p(id="cur_date")
+          input(
+            value="Submit" 
+            type="submit" 
+            class="submit_button" 
+            id="order_submit_button"
+            )

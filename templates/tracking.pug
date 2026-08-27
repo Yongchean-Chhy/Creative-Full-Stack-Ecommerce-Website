@@ -1,0 +1,96 @@
+extends layout 
+
+block title 
+    title Tracking 
+
+block scripts 
+   script(src="/resources/js/update.js")
+
+block content 
+    div(class = "title")
+        h1 Order Tracking
+
+    div(class="tracking_info")
+        div(class="status")
+            div(class="status_message")
+                div(id="error_message" class="status_message")
+                    if order.status === "Delevered"
+                        h2 our order has been successfully completed!
+                        p Sweet DreamZZZ!
+                    else if order.status === "Shipped"
+                        h2 Your order is shipped! 
+                        p Your sleeper is currently en route to your location.
+                    else 
+                        h2 Your order is confirmed and being prepared!
+                        p A sleeper has brushed their teeth and put on their comfiest pajamas.
+
+                p#description
+
+            div(class="order_detail")
+                table.status_table
+                    tr
+                        th Order ID:
+                        td#order_id #{order.id}
+                    tr 
+                        th Product:
+                        td #{order.product}
+                    tr 
+                        th Status:
+                        td#status #{order.status}
+                    tr
+                        th Cost:
+                        td #{order.costFormatted}
+
+            div(class="detail")
+                div(id="time_sect" class="time_section")
+                    h3 Order Management
+                    p Time Remaining Until Order Shipped
+                    p#countdown
+
+            div(class="button_section")
+                div(class="button_row")
+                    button#cancel_order Cancel Order
+                    button#update_shipping Update Shipping
+                    button#order_history View Order History
+            
+            #history_detail
+               div(id="history_detail" style ="disply: none;")
+                //-    h3 Order History
+                //-    table.history_table
+                //-        tr
+                //-            th ID
+                //-            th Order ID 
+                //-            th Shipping 
+                //-            th Update Time 
+                //-            th address
+                //-        each event in order.history
+                //-            tr
+                //-                 td #{event.date}
+                //-                 td #{event.status}
+                //-                 td #{event.shipping}
+                //-                 td #{event.update_time}
+                //-                 td #{event.address}
+
+            #update_detail
+                form#update_form
+                    input(type="hidden", name="order_id", value=order.id)
+                    input(type="hidden", name="action", value="update")
+
+                    label(for="new_addr") Delivery Address
+                    textarea#new_addr(name="new_addr", rows="2", cols="50")
+
+                    p Select a Shipping Option:
+                    #shipping-options
+                        label
+                            input(type="radio", name="shipping_option", value="flat rate")
+                            | Flat Rate
+                        br
+                        label
+                            input(type="radio", name="shipping_option", value="overnight shipping")
+                            | Overnight Shipping
+                        br
+                        label
+                            input(type="radio", name="shipping_option", value="asap")
+                            | ASAP
+
+                    input.submit_button(type="submit", value="Update Shipping")

@@ -1,0 +1,27 @@
+extends layout 
+
+block title 
+    title Order History
+
+block content 
+    .title
+      h1 Order History
+    div(class="order_history")
+      table#order_history_table
+        thead
+          tr
+            th ID
+            th Order ID
+            th Address
+            th Shipping
+            th Update Time
+        tbody
+            each update in order_history
+              tr
+                td #{update.id}
+                td #{update.order_id}
+                td 
+                  address
+                    | #{update.address}
+                td #{update.shipping}
+                td #{new Date(update.update_time).toLocaleString()}

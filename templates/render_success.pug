@@ -1,0 +1,20 @@
+doctype html
+extends layout 
+
+block title 
+    title Success 
+
+block scripts 
+    script(src="/resources/js/order.js")
+
+block content 
+    div(class="success_content")
+    div(class="title")
+        h1 Order Success 
+    p#sub_description Your order has been placed successfully.
+    p
+    strong Your order ID:
+    |  #{order.id}
+    p You can track your order using the link below.
+    a(href=`/tracking/${order.id}`)
+        button Track Your Order
